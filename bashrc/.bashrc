@@ -80,14 +80,14 @@ function __prompt_command() {
   local EXIT=$?
   PS1=$(tput sgr0)
   PS1+=$(tput setaf 7)
-  PS1+='\u@\h:\w$(__git_ps1 " (%s)") '
-  # status smiley
+  PS1+='\u@\h:\w$(__git_ps1 " (%s)") ['
+  # status code
   if [ $EXIT -eq 0 ]; then
-    PS1+="$(tput setaf 2):)"
+    PS1+="$(tput setaf 2)"
   else
-    PS1+="$(tput setaf 1):("
+    PS1+="$(tput setaf 1)"
   fi
-  PS1+=$(tput setaf 7)
+  PS1+="$EXIT$(tput setaf 7)]"
   # insert newline
   PS1+="\n"
   # if root, make prompt red
@@ -95,6 +95,9 @@ function __prompt_command() {
   PS1+=$(tput bold)
 
 }
+
+# This hack will reset terminal formatting just before command execution
+trap "tput sgr0" DEBUG
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then

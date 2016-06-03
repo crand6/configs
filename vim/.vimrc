@@ -6,3 +6,5 @@ set expandtab
 set autoindent
 set hidden
 set paste
+set relativenumber
+set ruler
