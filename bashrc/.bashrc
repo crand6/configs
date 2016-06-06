@@ -91,8 +91,12 @@ function __prompt_command() {
   # insert newline
   PS1+="\n"
   # if root, make prompt red
-  PS1+="$(if [ $EUID -eq 0 ]; then tput setaf 1; fi)>> $(tput setaf 7)"
-  PS1+=$(tput bold)
+  if [ $EUID -eq 0 ]; then
+    PS1+="\[$(tput setaf 1)\]"
+  else
+    PS1+="\[$(tput setaf 7)\]"
+  fi
+  PS1+=">> \[$(tput bold)\]"
 
 }
 
